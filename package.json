@@ -15,16 +15,16 @@
     "express",
     "rate-limiting"
   ],
-  "author": "Oyeniyi Isaac <isaacoyeniyi06@gmail.com>",
+  "author": "FUSE Varsity <isaacoyeniyi06@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/isaac0yen/html-to-pdf-api.git"
+    "url": "https://github.com/fusevarsity/html-to-pdf-api.git"
   },
   "bugs": {
-    "url": "https://github.com/isaac0yen/html-to-pdf-api/issues"
+    "url": "https://github.com/fusevarsity/html-to-pdf-api/issues"
   },
-  "homepage": "https://github.com/isaac0yen/html-to-pdf-api#readme",
+  "homepage": "https://github.com/fusevarsity/html-to-pdf-api#readme",
   "dependencies": {
     "express": "5.1.0",
     "puppeteer": "24.17.0",

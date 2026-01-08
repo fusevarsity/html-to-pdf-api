@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5003;
 
 // Security middleware
 app.use(helmet());
@@ -46,7 +46,7 @@ let browser = null;
 async function getBrowser() {
   if (!browser) {
     const isProduction = process.env.NODE_ENV === 'production';
-    
+
     if (isProduction) {
       // Use Sparticuz Chromium for serverless environments like Render
       browser = await puppeteer.launch({
@@ -353,17 +353,17 @@ app.get('/', (req, res) => {
 // PDF generation endpoint
 app.post('/generate-pdf', pdfLimiter, async (req, res) => {
   try {
-    const { 
-      html, 
-      format = 'A4', 
+    const {
+      html,
+      format = 'A4',
       orientation = 'portrait',
       margin = 0,
       filename = 'document.pdf'
     } = req.body;
 
     if (!html) {
-      return res.status(400).json({ 
-        error: 'HTML content is required' 
+      return res.status(400).json({
+        error: 'HTML content is required'
       });
     }
 
@@ -371,9 +371,9 @@ app.post('/generate-pdf', pdfLimiter, async (req, res) => {
     const page = await browserInstance.newPage();
 
     // Set content and wait for any resources to load
-    await page.setContent(html, { 
+    await page.setContent(html, {
       waitUntil: 'networkidle0',
-      timeout: 30000 
+      timeout: 30000
     });
 
     // Ensure proper emoji and UTF-8 support
@@ -406,17 +406,17 @@ app.post('/generate-pdf', pdfLimiter, async (req, res) => {
 
   } catch (error) {
     console.error('PDF generation error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       error: 'Failed to generate PDF',
-      message: error.message 
+      message: error.message
     });
   }
 });
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
+  res.json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
   });
@@ -442,7 +442,7 @@ app.get('/api', (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ 
+  res.status(404).json({
     error: 'Endpoint not found',
     availableEndpoints: ['/', '/generate-pdf', '/health', '/api']
   });
@@ -451,7 +451,7 @@ app.use((req, res) => {
 // Error handler
 app.use((error, req, res, next) => {
   console.error('Unhandled error:', error);
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Internal server error',
     message: process.env.NODE_ENV === 'development' ? error.message : 'Something went wrong'
   });
